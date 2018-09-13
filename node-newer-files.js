@@ -2,6 +2,7 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const glob = require("glob");
 
 /**
@@ -32,10 +33,7 @@ const isNeedsUpdate = (filePath, srcDir, targetDir) => {
   }
 
   const srcStats = getStats(filePath, srcDir);
-  if (srcStats.mtime > targetStats.mtime) {
-    return true;
-  }
-  return false;
+  return srcStats.mtime > targetStats.mtime;
 };
 
 /**
@@ -58,19 +56,40 @@ const getStats = (filePath, targetDir) => {
  * @param extensions 拡張子の配列
  * @param srcDir ソースディレクトリ
  * @param targetDir 比較、保存対象ディレクトリ
- * @returns {{path: Array, fileName: Array}} 更新対象ファイルリスト pathはフルパス、filenameはsrcDirからの相対パス
+ * @returns {Array} 更新対象ファイルリスト pathはフルパス、filenameはsrcDirからの相対パス
  */
 exports.getFiles = (extensions, srcDir, targetDir) => {
-  const imageList = getFileList(extensions, srcDir);
+  const fileList = getFileList(extensions, srcDir);
   const list = [];
 
-  for (let file of imageList) {
+  for (let file of fileList) {
     const update = isNeedsUpdate(file, srcDir, targetDir);
 
     if (!update) {
       continue;
     }
     list.push(file);
+  }
+  return list;
+};
+
+/**
+ * ファイルの同期を行う
+ * ソースディレクトリに存在しないファイルをターゲットディレクトリから削除する
+ * @param extensions
+ * @param srcDir
+ * @param targetDir
+ */
+exports.sync = (extensions, srcDir, targetDir) => {
+  const srcFiles = getFileList(extensions, srcDir);
+  const targetFiles = getFileList(extensions, targetDir);
+  const list = [];
+
+  for (let target of targetFiles) {
+    if (!srcFiles.includes(target)) {
+      list.push(target);
+      fs.unlink(path.resolve(targetDir, target), () => {});
+    }
   }
   return list;
 };
