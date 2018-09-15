@@ -4,7 +4,6 @@
 const fs = require("fs");
 const path = require("path");
 const glob = require("glob");
-const md5File = require("md5-file");
 
 /**
  * 対象ファイルリストを取得する
@@ -35,13 +34,7 @@ const isNeedsUpdate = (filePath, srcDir, targetDir) => {
 
   //更新日比較　変更があったら更新対象
   const srcStats = getStats(filePath, srcDir);
-  if (srcStats.mtime > targetStats.mtime) return true;
-
-  //ハッシュ比較　変更があったら上書き対象
-  const hashSrc = md5File.sync(path.resolve(srcDir, filePath));
-  const hashTarget = md5File.sync(path.resolve(targetDir, filePath));
-
-  return hashSrc !== hashTarget;
+  return srcStats.mtime > targetStats.mtime;
 };
 
 /**
