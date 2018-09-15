@@ -33,6 +33,12 @@ const isNeedsUpdate = (filePath, srcDir, targetDir) => {
   }
 
   const srcStats = getStats(filePath, srcDir);
+
+  console.debug(
+    srcStats.mtime,
+    targetStats.mtime,
+    srcStats.mtime > targetStats.mtime
+  );
   return srcStats.mtime > targetStats.mtime;
 };
 
