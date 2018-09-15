@@ -9,22 +9,56 @@ const spyError = jest.spyOn(console, "error").mockImplementation(x => x);
 const newer = require("../node-newer-files");
 
 describe("更新ファイルリストの取得", () => {
+  const maybeList = [
+    "sample1.js",
+    "sample3.js",
+    "sample4.html",
+    "sample5.css",
+    "sub/sampleSub1.js",
+    "sub/sampleSub2.html"
+  ];
+
+  const srcList = [
+    "sample1.js",
+    "sample2.js",
+    "sample3.js",
+    "sample4.html",
+    "sample5.css",
+    "sub/sampleSub1.js",
+    "sub/sampleSub2.html"
+  ];
+
   test("更新ファイルを期待値通りに取得", () => {
     const list = newer.getFiles(
       ["js", "html", "css"],
       "spec/sampleSrc",
       "spec/sampleDist"
     );
-    const maybeList = [
-      "sample1.js",
-      "sample3.js",
-      "sample4.html",
-      "sample5.css",
-      "sub/sampleSub1.js",
-      "sub/sampleSub2.html"
-    ];
 
     expect(list).toEqual(maybeList);
+  });
+
+  test("ファイル拡張子無指定の場合は空の配列を返す", () => {
+    const list = newer.getFiles(undefined, "spec/sampleSrc", "spec/sampleDist");
+    expect(list).toEqual([]);
+  });
+
+  test("ソースディレクトリ未指定の場合はエラーとして処理を中断", () => {
+    const list = newer.getFiles(
+      ["js", "html", "css"],
+      undefined,
+      "spec/sampleDist"
+    );
+    expect(list).toEqual([]);
+  });
+
+  test("ターゲットディレクトリ未指定の場合は空として扱い、ソースディレクトリのファイルを全て返す", () => {
+    const list = newer.getFiles(
+      ["js", "html", "css"],
+      "spec/sampleSrc",
+      undefined
+    );
+    expect(list).toEqual(srcList);
   });
 });
 

@@ -58,7 +58,24 @@ const getStats = (filePath, targetDir) => {
  * @param targetDir 比較、保存対象ディレクトリ
  * @returns {Array} 更新対象ファイルリスト pathはフルパス、filenameはsrcDirからの相対パス
  */
-exports.getFiles = (extensions, srcDir, targetDir) => {
+exports.getFiles = (extensions = [], srcDir, targetDir) => {
+  //ファイル拡張子が指定されていない場合は警告
+  if (extensions.length === 0) {
+    console.error(
+      "node-newer-files.getFiles() : ファイル拡張子が指定されていません。空の配列を返します。"
+    );
+  }
+
+  //srcディレクトリの存在確認
+  try {
+    fs.accessSync(srcDir, fs.constants.R_OK);
+  } catch (err) {
+    console.error(
+      "node-newer-files.getFiles() : srcディレクトリが存在しません。処理を中断します。"
+    );
+    return [];
+  }
+
   const fileList = getFileList(extensions, srcDir);
   const list = [];
 
@@ -93,10 +110,10 @@ exports.sync = (extensions, srcDir, targetDir) => {
 
   //targetDirの存在確認
   try {
-    fs.accessSync(targetDir, fs.constants.R_OK);
+    fs.accessSync(targetDir, fs.constants.R_OK | fs.constants.W_OK);
   } catch (err) {
     console.error(
-      "node-newer-files.sync() : targetディレクトリが存在しません。処理を中断します。"
+      "node-newer-files.sync() : targetディレクトリが存在しないか、パーミッションがありません。処理を中断します。"
     );
     return false;
   }
