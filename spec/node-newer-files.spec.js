@@ -28,15 +28,15 @@ describe("更新ファイルリストの取得", () => {
     "sub/sampleSub2.html"
   ];
 
-  // test("更新ファイルを期待値通りに取得", () => {
-  //   const list = newer.getFiles(
-  //     ["js", "html", "css"],
-  //     "spec/sampleSrc",
-  //     "spec/sampleDist"
-  //   );
-  //
-  //   expect(list).toEqual(maybeList);
-  // });
+  test("更新ファイルを期待値通りに取得", () => {
+    const list = newer.getFiles(
+      ["js", "html", "css"],
+      "spec/sampleSrc",
+      "spec/sampleDist"
+    );
+
+    expect(list).toEqual(maybeList);
+  });
 
   test("ファイル拡張子無指定の場合は空の配列を返す", () => {
     const list = newer.getFiles(undefined, "spec/sampleSrc", "spec/sampleDist");
