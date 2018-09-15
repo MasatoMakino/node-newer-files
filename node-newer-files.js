@@ -40,12 +40,8 @@ const isNeedsUpdate = (filePath, srcDir, targetDir) => {
   //ハッシュ比較　変更があったら上書き対象
   const hashSrc = md5File.sync(path.resolve(srcDir, filePath));
   const hashTarget = md5File.sync(path.resolve(targetDir, filePath));
-  console.debug(filePath, hashSrc, hashTarget, hashSrc !== hashTarget);
-  if (hashSrc !== hashTarget) {
-    return true;
-  }
 
-  return false;
+  return hashSrc !== hashTarget;
 };
 
 /**
