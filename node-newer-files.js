@@ -81,6 +81,34 @@ exports.getFiles = (extensions, srcDir, targetDir) => {
  * @param targetDir
  */
 exports.sync = (extensions, srcDir, targetDir) => {
+  //srcディレクトリの存在確認
+  try {
+    fs.accessSync(srcDir, fs.constants.R_OK);
+  } catch (err) {
+    console.error(
+      "node-newer-files.sync() : srcディレクトリが存在しません。targetディレクトリを破壊する可能性があるので処理を中断します。"
+    );
+    return false;
+  }
+
+  //targetDirの存在確認
+  try {
+    fs.accessSync(targetDir, fs.constants.R_OK);
+  } catch (err) {
+    console.error(
+      "node-newer-files.sync() : targetディレクトリが存在しません。処理を中断します。"
+    );
+    return false;
+  }
+
+  //targetDirはルートディレクトリを指定するのは禁止
+  if (path.resolve() === path.resolve(targetDir) || targetDir === "/") {
+    console.error(
+      "node-newer-files.sync() : targetにプロジェクトルートが指定されています。ファイルの保護のため処理を中断します。"
+    );
+    return false;
+  }
+
   const srcFiles = getFileList(extensions, srcDir);
   const targetFiles = getFileList(extensions, targetDir);
   const list = [];
