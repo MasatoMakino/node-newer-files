@@ -68,12 +68,7 @@ exports.getFiles = (extensions = [], srcDir, targetDir) => {
   }
 
   //srcディレクトリの存在確認
-  try {
-    fs.accessSync(srcDir, fs.constants.R_OK);
-  } catch (err) {
-    console.error(
-      "node-newer-files.getFiles() : srcディレクトリが存在しません。処理を中断します。"
-    );
+  if (!findSrcDir(srcDir, "getFiles")) {
     return [];
   }
 
@@ -91,6 +86,18 @@ exports.getFiles = (extensions = [], srcDir, targetDir) => {
   return list;
 };
 
+const findSrcDir = (srcDir, functionName) => {
+  try {
+    fs.accessSync(srcDir, fs.constants.R_OK);
+    return true;
+  } catch (err) {
+    console.error(
+      `node-newer-files.${functionName}() : srcディレクトリが存在しません。処理を中断します。`
+    );
+    return false;
+  }
+};
+
 /**
  * ファイルの同期を行う
  * ソースディレクトリに存在しないファイルをターゲットディレクトリから削除する
@@ -100,15 +107,33 @@ exports.getFiles = (extensions = [], srcDir, targetDir) => {
  */
 exports.sync = (extensions, srcDir, targetDir) => {
   //srcディレクトリの存在確認
-  try {
-    fs.accessSync(srcDir, fs.constants.R_OK);
-  } catch (err) {
-    console.error(
-      "node-newer-files.sync() : srcディレクトリが存在しません。targetディレクトリを破壊する可能性があるので処理を中断します。"
-    );
+  if (!findSrcDir(srcDir, "sync")) {
     return false;
   }
 
+  if (!checkTargetDir(targetDir)) {
+    return false;
+  }
+
+  const srcFiles = getFileList(extensions, srcDir);
+  const targetFiles = getFileList(extensions, targetDir);
+  const list = [];
+
+  for (let target of targetFiles) {
+    if (!srcFiles.includes(target)) {
+      list.push(target);
+      fs.unlink(path.resolve(targetDir, target), () => {});
+    }
+  }
+  return list;
+};
+
+/**
+ * ターゲットディレクトリの存在確認と、対象ディレクトリが不適切でないかの確認
+ * @param targetDir
+ * @returns {boolean}
+ */
+const checkTargetDir = targetDir => {
   //targetDirの存在確認
   try {
     fs.accessSync(targetDir, fs.constants.R_OK | fs.constants.W_OK);
@@ -126,16 +151,5 @@ exports.sync = (extensions, srcDir, targetDir) => {
     );
     return false;
   }
-
-  const srcFiles = getFileList(extensions, srcDir);
-  const targetFiles = getFileList(extensions, targetDir);
-  const list = [];
-
-  for (let target of targetFiles) {
-    if (!srcFiles.includes(target)) {
-      list.push(target);
-      fs.unlink(path.resolve(targetDir, target), () => {});
-    }
-  }
-  return list;
+  return true;
 };
