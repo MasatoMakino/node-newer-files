@@ -1,3 +1,4 @@
 exclude_paths:
-  - docs/api/**/*
-  - **/spec/
+  - "docs/api/**/*"
+  - "tests/"
+  - "spec/"
