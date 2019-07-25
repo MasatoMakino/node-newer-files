@@ -296,7 +296,7 @@ tr > th:last-child {
   margin: 0;
 }
 
-.prettyprint {
+.source {
   border: 1px solid #ddd;
   width: 80%;
   overflow: auto;
@@ -306,7 +306,7 @@ tr > th:last-child {
   width: inherit;
 }
 
-.prettyprint code {
+.source code {
   font-size: 100%;
   line-height: 18px;
   display: block;
