@@ -1,19 +1,19 @@
 {
   "name": "node-newer-files",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "node-newer-files.js",
   "repository": "https://MasatoMakino@github.com/MasatoMakino/node-newer-files.git",
   "author": "MasatoMakino <unagiinu.g@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "glob": "^7.1.4"
+    "glob": "^7.1.6"
   },
   "devDependencies": {
-    "husky": "^3.0.1",
-    "jest": "^24.8.0",
-    "jsdoc": "^3.6.3",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1"
+    "husky": "^4.2.5",
+    "jest": "^25.5.2",
+    "jsdoc": "^3.6.4",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1"
   },
   "scripts": {
     "test": "jest --coverage",
