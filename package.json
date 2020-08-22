@@ -18,9 +18,8 @@
   "scripts": {
     "test": "jest --coverage",
     "testjs": "node run.js",
-    "doc": "npm run doc:api && npm run doc:card",
-    "doc:api": "jsdoc -d docs/api -r node-newer-files.js",
-    "doc:card": "repoimg -n MasatoMakino/node-newer-files -o ./docs/card.png"
+    "doc": "npm run doc:api",
+    "doc:api": "jsdoc -d docs/api -r node-newer-files.js"
   },
   "husky": {
     "hooks": {
