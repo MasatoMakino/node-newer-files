@@ -18,8 +18,7 @@
   "scripts": {
     "test": "jest --coverage",
     "testjs": "node run.js",
-    "doc": "npm run doc:api",
-    "doc:api": "jsdoc -d docs/api -r node-newer-files.js",
+    "doc": "jsdoc -d docs/api -r node-newer-files.js",
     "prepare": "husky install"
   },
   "engines": {
