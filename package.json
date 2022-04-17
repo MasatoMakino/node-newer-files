@@ -9,7 +9,7 @@
     "glob": "^7.1.7"
   },
   "devDependencies": {
-    "husky": "^6.0.0",
+    "husky": "^7.0.4",
     "jest": "^26.6.3",
     "jsdoc": "^3.6.7",
     "prettier": "^2.3.0",
@@ -21,10 +21,5 @@
     "doc": "npm run doc:api",
     "doc:api": "jsdoc -d docs/api -r node-newer-files.js",
     "prepare": "husky install"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
   }
 }
