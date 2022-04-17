@@ -16,7 +16,8 @@
     "pretty-quick": "^3.1.3"
   },
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest",
+    "coverage": "jest --coverage",
     "testjs": "node run.js",
     "doc": "jsdoc -d docs/api -r node-newer-files.js",
     "prepare": "husky install"
