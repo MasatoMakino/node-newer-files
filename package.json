@@ -8,6 +8,9 @@
   },
   "author": "MasatoMakino <unagiinu.g@gmail.com>",
   "license": "MIT",
+  "files": [
+    "node-newer-files.js"
+  ],
   "dependencies": {
     "glob": "^8.0.3"
   },
