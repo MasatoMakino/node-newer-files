@@ -1,6 +1,6 @@
 # node-newer-files
 
-Compare two directories and list updated files.
+> Compare two directories and list updated files.
 
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![CI_Main](https://github.com/MasatoMakino/node-newer-files/workflows/CI_Main/badge.svg)](https://github.com/MasatoMakino/node-newer-files/actions/workflows/ci.yml)
@@ -14,7 +14,7 @@ Compare two directories and list updated files.
 ### Install
 
 ```bash
-npm install https://github.com/MasatoMakino/node-newer-files.git --save-dev
+npm install @masatomakino/node-newer-files.git --save-dev
 ```
 
 ### API
@@ -31,4 +31,4 @@ Compare two directories and sync files.
 
 ## License
 
-node-newer-files is [MIT licensed](LICENSE).
+[MIT licensed](LICENSE).

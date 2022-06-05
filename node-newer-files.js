@@ -16,7 +16,7 @@ const getFileList = (extensions, cwd) => {
   const ext = "+(" + extensions.join("|") + ")";
   const pattern = `**/*.${ext}`;
   return glob.sync(pattern, {
-    cwd: cwd
+    cwd: cwd,
   });
 };
 
@@ -145,7 +145,7 @@ exports.sync = (extensions, srcDir, targetDir) => {
  * @param targetDir
  * @returns {boolean}
  */
-const checkTargetDir = targetDir => {
+const checkTargetDir = (targetDir) => {
   //targetDirの存在確認
   try {
     fs.accessSync(targetDir, fs.constants.R_OK | fs.constants.W_OK);
