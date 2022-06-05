@@ -6,11 +6,11 @@
   "author": "MasatoMakino <unagiinu.g@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "glob": "^8.0.1"
+    "glob": "^8.0.3"
   },
   "devDependencies": {
-    "husky": "^7.0.4",
-    "jest": "^27.5.1",
+    "husky": "^8.0.1",
+    "jest": "^28.1.0",
     "jsdoc": "^3.6.10",
     "prettier": "^2.6.2",
     "pretty-quick": "^3.1.3"
