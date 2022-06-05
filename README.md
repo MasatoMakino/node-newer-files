@@ -14,7 +14,7 @@
 ### Install
 
 ```bash
-npm install @masatomakino/node-newer-files.git --save-dev
+npm install @masatomakino/newer-files --save-dev
 ```
 
 ### API
