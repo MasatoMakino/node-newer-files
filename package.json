@@ -1,8 +1,11 @@
 {
-  "name": "node-newer-files",
+  "name": "@masatomakino/newer-files",
   "version": "0.1.0",
   "main": "node-newer-files.js",
-  "repository": "https://MasatoMakino@github.com/MasatoMakino/node-newer-files.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://MasatoMakino@github.com/MasatoMakino/node-newer-files.git"
+  },
   "author": "MasatoMakino <unagiinu.g@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -24,5 +27,10 @@
   },
   "engines": {
     "node": ">=12"
-  }
+  },
+  "description": "Compare two directories and list updated files.",
+  "bugs": {
+    "url": "https://github.com/MasatoMakino/node-newer-files/issues"
+  },
+  "homepage": "https://github.com/MasatoMakino/node-newer-files#readme"
 }
