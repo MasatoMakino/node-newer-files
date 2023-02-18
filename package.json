@@ -1,6 +1,6 @@
 {
   "name": "@masatomakino/newer-files",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "main": "node-newer-files.js",
   "repository": {
     "type": "git",
