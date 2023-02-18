@@ -5,14 +5,17 @@ const list = newer.getFiles(
   "spec/sampleDist"
 );
 console.log(list);
-console.log(
-  `maybe
-[
-  'sample1.js',
-  'sample3.js',
-  'sample4.html',
-  'sub/sampleSub1.js',
-  'sub/sampleSub2.html'
-]
-`
-);
+
+const expect = [
+  "sample1.js",
+  "sample3.js",
+  "sample4.html",
+  "sub/sampleSub1.js",
+  "sub/sampleSub2.html",
+];
+console.log(`maybe`, expect);
+if (list.toString() === expect.toString()) {
+  console.log("works fine!");
+} else {
+  console.warn("error!");
+}
