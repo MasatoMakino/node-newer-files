@@ -7,8 +7,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/6803fc1185400f604649/maintainability)](https://codeclimate.com/github/MasatoMakino/node-newer-files/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6803fc1185400f604649/test_coverage)](https://codeclimate.com/github/MasatoMakino/node-newer-files/test_coverage)
 
-[![libraries io](https://img.shields.io/librariesio/github/MasatoMakino/node-newer-files.svg)](https://libraries.io/github/MasatoMakino/node-newer-files)
-
 ## Getting Started
 
 ### Install
