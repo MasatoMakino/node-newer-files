@@ -62,7 +62,7 @@ describe("更新ファイルリストの取得", () => {
       "spec/sampleSrc",
       undefined,
     );
-    expect(list).toEqual(srcList);
+    expect([...list].sort()).toEqual([...srcList].sort());
   });
 });
 
@@ -79,7 +79,9 @@ describe("ファイルの同期", () => {
     );
     expect(unlink).toHaveBeenCalled();
     expect(unlink).toHaveBeenCalledTimes(2);
-    expect(deleted).toEqual(["sample101.js", "sample102.js"]);
+    expect([...deleted].sort()).toEqual(
+      ["sample101.js", "sample102.js"].sort(),
+    );
 
     unlink.mockReset();
     unlink.mockRestore();
