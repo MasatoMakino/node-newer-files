@@ -1,10 +1,9 @@
 "use strict";
 const fs = require("fs");
-const path = require("path");
 
-const spyLog = jest.spyOn(console, "log").mockImplementation(x => x);
-const spyWarn = jest.spyOn(console, "warn").mockImplementation(x => x);
-const spyError = jest.spyOn(console, "error").mockImplementation(x => x);
+const spyLog = jest.spyOn(console, "log").mockImplementation((x) => x);
+const spyWarn = jest.spyOn(console, "warn").mockImplementation((x) => x);
+const spyError = jest.spyOn(console, "error").mockImplementation((x) => x);
 
 const newer = require("../node-newer-files");
 
@@ -15,7 +14,7 @@ describe("更新ファイルリストの取得", () => {
     "sample4.html",
     "sample5.css",
     "sub/sampleSub1.js",
-    "sub/sampleSub2.html"
+    "sub/sampleSub2.html",
   ];
 
   const srcList = [
@@ -25,7 +24,7 @@ describe("更新ファイルリストの取得", () => {
     "sample4.html",
     "sample5.css",
     "sub/sampleSub1.js",
-    "sub/sampleSub2.html"
+    "sub/sampleSub2.html",
   ];
 
   /**
@@ -52,7 +51,7 @@ describe("更新ファイルリストの取得", () => {
     const list = newer.getFiles(
       ["js", "html", "css"],
       undefined,
-      "spec/sampleDist"
+      "spec/sampleDist",
     );
     expect(list).toEqual([]);
   });
@@ -61,7 +60,7 @@ describe("更新ファイルリストの取得", () => {
     const list = newer.getFiles(
       ["js", "html", "css"],
       "spec/sampleSrc",
-      undefined
+      undefined,
     );
     expect(list).toEqual(srcList);
   });
@@ -76,7 +75,7 @@ describe("ファイルの同期", () => {
     const deleted = newer.sync(
       ["js", "html", "css"],
       "spec/sampleSrc",
-      "spec/sampleDist"
+      "spec/sampleDist",
     );
     expect(unlink).toHaveBeenCalled();
     expect(unlink).toHaveBeenCalledTimes(2);
@@ -90,7 +89,7 @@ describe("ファイルの同期", () => {
     const deleted = newer.sync(
       ["js", "html", "css"],
       "not/exist/dir",
-      "spec/sampleDist"
+      "spec/sampleDist",
     );
 
     expect(deleted).toBe(false);
@@ -110,7 +109,7 @@ describe("ファイルの同期", () => {
     const deleted = newer.sync(
       ["js", "html", "css"],
       undefined,
-      "spec/sampleDist"
+      "spec/sampleDist",
     );
     expect(deleted).toBe(false);
     unlink.mockReset();
@@ -121,7 +120,7 @@ describe("ファイルの同期", () => {
     const deleted = newer.sync(
       ["js", "html", "css"],
       "spec/sampleSrc",
-      "not/exist/dir"
+      "not/exist/dir",
     );
     expect(deleted).toBe(false);
     unlink.mockReset();
@@ -132,7 +131,7 @@ describe("ファイルの同期", () => {
     const deleted = newer.sync(
       ["js", "html", "css"],
       "spec/sampleSrc",
-      undefined
+      undefined,
     );
     expect(deleted).toBe(false);
     unlink.mockReset();
