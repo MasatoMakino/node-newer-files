@@ -9,7 +9,7 @@ const glob = require("glob");
  * 対象ファイルリストを取得する
  * @private
  * @param extensions 拡張子の配列
- * @param cwd　ソースディレクトリ
+ * @param cwd ソースディレクトリ
  * @returns {*}
  */
 const getFileList = (extensions, cwd) => {
