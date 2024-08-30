@@ -1,9 +1,9 @@
-const newer = require("./node-newer-files.js");
-const list = newer.getFiles(
+import { getFiles } from "./node-newer-files.js";
+const list = getFiles(
   ["js", "html"],
   "spec/sampleSrc",
-  "spec/sampleDist"
-);
+  "spec/sampleDist",
+).sort();
 console.log(list);
 
 const expect = [
@@ -12,7 +12,8 @@ const expect = [
   "sample4.html",
   "sub/sampleSub1.js",
   "sub/sampleSub2.html",
-];
+].sort();
+
 console.log(`maybe`, expect);
 if (list.toString() === expect.toString()) {
   console.log("works fine!");

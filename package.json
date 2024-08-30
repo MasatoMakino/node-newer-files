@@ -2,6 +2,7 @@
   "name": "@masatomakino/newer-files",
   "version": "0.2.1",
   "main": "node-newer-files.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://MasatoMakino@github.com/MasatoMakino/node-newer-files.git"

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 "use strict";
 
-const fs = require("fs");
-const path = require("path");
-const glob = require("glob");
+import { statSync, accessSync, constants, unlink } from "fs";
+import { resolve } from "path";
+import { sync as _globSync } from "glob";
 
 /**
  * 対象ファイルリストを取得する
@@ -15,7 +15,7 @@ const glob = require("glob");
 const getFileList = (extensions, cwd) => {
   const ext = "+(" + extensions.join("|") + ")";
   const pattern = `**/*.${ext}`;
-  return glob.sync(pattern, {
+  return _globSync(pattern, {
     cwd: cwd,
   });
 };
@@ -48,7 +48,7 @@ const isNeedsUpdate = (filePath, srcDir, targetDir) => {
  */
 const getStats = (filePath, targetDir) => {
   try {
-    const stats = fs.statSync(targetDir + "/" + filePath);
+    const stats = statSync(targetDir + "/" + filePath);
     return stats;
   } catch (err) {
     return null;
@@ -62,11 +62,11 @@ const getStats = (filePath, targetDir) => {
  * @param targetDir{string} 比較、保存対象ディレクトリ
  * @returns {Array} 更新対象ファイルリスト srcDirからの相対パス
  */
-exports.getFiles = (extensions = [], srcDir, targetDir) => {
+export function getFiles(extensions = [], srcDir, targetDir) {
   //ファイル拡張子が指定されていない場合は警告
   if (extensions.length === 0) {
     console.error(
-      "node-newer-files.getFiles() : ファイル拡張子が指定されていません。空の配列を返します。"
+      "node-newer-files.getFiles() : ファイル拡張子が指定されていません。空の配列を返します。",
     );
   }
 
@@ -87,7 +87,7 @@ exports.getFiles = (extensions = [], srcDir, targetDir) => {
     list.push(file);
   }
   return list;
-};
+}
 
 /**
  * ソースディレクトリの存在を確認する。
@@ -98,11 +98,11 @@ exports.getFiles = (extensions = [], srcDir, targetDir) => {
  */
 const findSrcDir = (srcDir, functionName) => {
   try {
-    fs.accessSync(srcDir, fs.constants.R_OK);
+    accessSync(srcDir, constants.R_OK);
     return true;
   } catch (err) {
     console.error(
-      `node-newer-files.${functionName}() : srcディレクトリが存在しません。処理を中断します。`
+      `node-newer-files.${functionName}() : srcディレクトリが存在しません。処理を中断します。`,
     );
     return false;
   }
@@ -116,7 +116,7 @@ const findSrcDir = (srcDir, functionName) => {
  * @param targetDir{string}
  * @returns {Array} 削除されたファイルのパス配列
  */
-exports.sync = (extensions, srcDir, targetDir) => {
+export function sync(extensions, srcDir, targetDir) {
   //srcディレクトリの存在確認
   if (!findSrcDir(srcDir, "sync")) {
     return false;
@@ -133,11 +133,11 @@ exports.sync = (extensions, srcDir, targetDir) => {
   for (let target of targetFiles) {
     if (!srcFiles.includes(target)) {
       list.push(target);
-      fs.unlink(path.resolve(targetDir, target), () => {});
+      unlink(resolve(targetDir, target), () => {});
     }
   }
   return list;
-};
+}
 
 /**
  * ターゲットディレクトリの存在確認と、対象ディレクトリが不適切でないかの確認。
@@ -148,18 +148,18 @@ exports.sync = (extensions, srcDir, targetDir) => {
 const checkTargetDir = (targetDir) => {
   //targetDirの存在確認
   try {
-    fs.accessSync(targetDir, fs.constants.R_OK | fs.constants.W_OK);
+    accessSync(targetDir, constants.R_OK | constants.W_OK);
   } catch (err) {
     console.error(
-      "node-newer-files.sync() : targetディレクトリが存在しないか、パーミッションがありません。処理を中断します。"
+      "node-newer-files.sync() : targetディレクトリが存在しないか、パーミッションがありません。処理を中断します。",
     );
     return false;
   }
 
   //targetDirはルートディレクトリを指定するのは禁止
-  if (path.resolve() === path.resolve(targetDir) || targetDir === "/") {
+  if (resolve() === resolve(targetDir) || targetDir === "/") {
     console.error(
-      "node-newer-files.sync() : targetにプロジェクトルートが指定されています。ファイルの保護のため処理を中断します。"
+      "node-newer-files.sync() : targetにプロジェクトルートが指定されています。ファイルの保護のため処理を中断します。",
     );
     return false;
   }
