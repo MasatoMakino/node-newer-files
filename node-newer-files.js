@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 "use strict";
 
-import { statSync, accessSync, constants, unlink } from "fs";
+import { statSync, accessSync, constants } from "fs";
+import fs from "fs";
 import { resolve } from "path";
 import { sync as _globSync } from "glob";
 
@@ -133,7 +134,7 @@ export function sync(extensions, srcDir, targetDir) {
   for (let target of targetFiles) {
     if (!srcFiles.includes(target)) {
       list.push(target);
-      unlink(resolve(targetDir, target), () => {});
+      fs.unlink(resolve(targetDir, target), () => {});
     }
   }
   return list;

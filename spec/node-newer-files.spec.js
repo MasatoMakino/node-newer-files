@@ -1,9 +1,10 @@
 "use strict";
 import fs from "fs";
+import { vi, describe, test, expect } from "vitest";
 
-const spyLog = jest.spyOn(console, "log").mockImplementation((x) => x);
-const spyWarn = jest.spyOn(console, "warn").mockImplementation((x) => x);
-const spyError = jest.spyOn(console, "error").mockImplementation((x) => x);
+const spyLog = vi.spyOn(console, "log").mockImplementation((x) => x);
+const spyWarn = vi.spyOn(console, "warn").mockImplementation((x) => x);
+const spyError = vi.spyOn(console, "error").mockImplementation((x) => x);
 
 import { getFiles, sync } from "../node-newer-files";
 
@@ -59,7 +60,7 @@ describe("更新ファイルリストの取得", () => {
 });
 
 describe("ファイルの同期", () => {
-  const unlink = jest
+  const unlink = vi
     .spyOn(fs, "unlink")
     .mockImplementation((string, Function) => undefined);
 
