@@ -16,7 +16,7 @@
     "glob": "^11.0.0"
   },
   "devDependencies": {
-    "@masatomakino/release-helper": "^0.1.6",
+    "@masatomakino/release-helper": "^0.2.0",
     "@vitest/coverage-istanbul": "^3.0.2",
     "husky": "^9.0.10",
     "jsdoc": "^4.0.2",
