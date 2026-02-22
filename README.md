@@ -1,6 +1,8 @@
 # node-newer-files
 
-> [!CAUTION] > **This repository has been archived.**
+> [!CAUTION]
+>
+> **This repository has been archived.**
 >
 > This package is deprecated. The functionality can be replaced with ~20 lines of code using Node.js 22+ built-in `globSync` from `node:fs`. See [#182](https://github.com/MasatoMakino/node-newer-files/issues/182) for replacement examples.
 
